@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <meta charset="utf-8" />
+        <meta name="format-detection" content="telephone=no" />
+        <meta name="msapplication-tap-highlight" content="no" />
+        <meta name="viewport" content="user-scalable=no, initial-scale=1, maximum-scale=1, minimum-scale=1, width=device-width, height=device-height, target-densitydpi=device-dpi" />
+        <link rel="stylesheet" type="text/css" href="css/index.css" />
+        <link rel="stylesheet" type="text/css" href="css/jquery.mobile-1.4.5.min.css" />
+        <title>Hello World</title>
+    </head>
+    <body id="body">
+        <div data-role="page" id="main">
+            <div data-role="header" style="overflow:hidden;"><h1>Home Page</h1></div>
+            <div>
+                <div class="ui-grid-a">
+                    <div class="ui-block-a">
+                        <a href="#secondary" class="ui-shadow ui-btn ui-corner-all">Secondary</a>
+                    </div>
+                    <div class="ui-block-b">
+                        <div class="button-wrap">
+                            <button id="restyle" class="ui-shadow ui-btn ui-corner-all">Restyle</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="ui-grid-solo">
+                    <div class="ui-block-a">
+                        <button id="backToNormal" class="ui-btn ui-shadow ui-corner-all">Back to normal</button>
+                    </div>
+                </div>
+            </div>
+            <div data-role="footer">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#" data-icon="grid">Summary</a></li>
+                        <li><a href="#" data-icon="star" class="ui-btn-active">Favs</a></li>
+                        <li><a href="#" data-icon="gear">Setup</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div data-role="page" id="secondary">
+            <div data-role="header" style="overflow:hidden;"><h1>Secondary Page</h1></div>
+            <div data-role="footer">
+                <div data-role="navbar">
+                    <ul>
+                        <li><a href="#" data-icon="grid">Summary</a></li>
+                        <li><a href="#" data-icon="star" class="ui-btn-active">Favs</a></li>
+                        <li><a href="#" data-icon="gear">Setup</a></li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <script type="text/javascript" src="cordova.js"></script>
+        <script type="text/javascript" src="js/jquery-2.2.2.min.js"></script>
+        <script type="text/javascript" src="js/jquery.mobile-1.4.5.min.js"></script>
+        <script>
+            $('document').ready(function() {
+                getNewTheme();
+            });
+
+            $('#restyle').click(setNewTheme);
+            $('#backToNormal').click(backToNormal);
+
+            function setNewTheme() {
+                window.localStorage.setItem("background", "black");
+                window.localStorage.setItem("color", "white");
+                
+                getNewTheme();
+            };
+
+            function getNewTheme() {
+                var background = window.localStorage.getItem("background");
+                var color = window.localStorage.getItem("color");
+
+                var header = {
+                    backgroundColor: background,
+                    color: color
+                };
+
+                $('[data-role=header]').css(header);
+                $('[data-role=navbar] ul li a').css(header);
+            };
+
+            function backToNormal() {
+                window.localStorage.clear();
+                location.reload();
+            }
+        </script>
+    </body>
+</html>
